@@ -51,7 +51,7 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(546, 106);
+            listBox1.Location = new Point(666, 103);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(374, 259);
             listBox1.TabIndex = 1;
@@ -93,7 +93,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(721, 55);
+            button3.Location = new Point(807, 55);
             button3.Name = "button3";
             button3.Size = new Size(75, 23);
             button3.TabIndex = 6;

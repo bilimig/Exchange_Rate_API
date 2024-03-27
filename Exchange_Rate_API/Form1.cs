@@ -12,16 +12,16 @@ namespace Exchange_Rate_API
         {
             InitializeComponent();
             client = new HttpClient();
-            get_Api();
+            _ = get_Api();
         }
 
-        private async void get_Api()
+        private async Task get_Api()
         {
             string call = "https://openexchangerates.org/api/latest.json?app_id=1fed4d198f104193bd12046055119b21";
             string response = await client.GetStringAsync(call);
             _dataExchanges = JsonSerializer.Deserialize<DataExchange>(response);
             _unixTimeSeconds = _dataExchanges.timestamp;
-            foreach (var rate in _dataExchanges.rates)
+            foreach (KeyValuePair<string, decimal> rate in _dataExchanges.rates)
             {
                 comboBox1.Items.Add(rate.Key);
                 comboBox2.Items.Add(rate.Key);
@@ -33,14 +33,14 @@ namespace Exchange_Rate_API
 
             DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(_unixTimeSeconds);
             string formattedDate = dateTimeOffset.ToString("yyyy-MM-dd HH:mm:ss");
-            listBox1.Items.Add("Data: " + formattedDate);
+            listBox1.Items.Add("Pobrano dane z: " + formattedDate);
 
         }
 
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            get_Api();
+            _ = get_Api();
             print_date();
 
         }
