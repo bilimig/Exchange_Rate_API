@@ -1,3 +1,4 @@
+using SQLitePCL;
 using System.Text.Json;
 using static Exchange_Rate_API.DataExchange;
 
@@ -8,11 +9,14 @@ namespace Exchange_Rate_API
         private HttpClient client;
         private DataExchange _dataExchanges;
         long _unixTimeSeconds;
+        private ExchangeHouse _house;
         public Form1()
         {
             InitializeComponent();
             client = new HttpClient();
             _ = get_Api();
+            _house = new ExchangeHouse();
+            listBox2.DataSource = _house.ExchangeData.ToList<DbExchangeData>();
         }
 
         private async Task get_Api()
@@ -21,10 +25,13 @@ namespace Exchange_Rate_API
             string response = await client.GetStringAsync(call);
             _dataExchanges = JsonSerializer.Deserialize<DataExchange>(response);
             _unixTimeSeconds = _dataExchanges.timestamp;
+
+            print_date();
             foreach (KeyValuePair<string, decimal> rate in _dataExchanges.rates)
             {
                 comboBox1.Items.Add(rate.Key);
                 comboBox2.Items.Add(rate.Key);
+                comboBox3.Items.Add(rate.Key);
             }
         }
 
@@ -33,7 +40,7 @@ namespace Exchange_Rate_API
 
             DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(_unixTimeSeconds);
             string formattedDate = dateTimeOffset.ToString("yyyy-MM-dd HH:mm:ss");
-            listBox1.Items.Add("Pobrano dane z: " + formattedDate);
+            listBox1.Items.Add("Pobrane dane z: " + formattedDate);
 
         }
 
@@ -72,6 +79,29 @@ namespace Exchange_Rate_API
         {
             listBox1.Items.Clear();
             textBox1.Clear();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var keyvalue = comboBox3.SelectedItem.ToString();
+            var valuedb = _dataExchanges.rates[keyvalue];
+            valuedb = Math.Round(valuedb, 2);
+            _house.ExchangeData.Add(new DbExchangeData()
+            {
+                key = keyvalue,
+                value = valuedb,
+                timestamp = _dataExchanges.timestamp,
+            });
+            _house.SaveChanges();
+
+            listBox2.DataSource = _house.ExchangeData.ToList<DbExchangeData>();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            _house.ExchangeData.RemoveRange(_house.ExchangeData);
+            _house.SaveChanges();
+            listBox2.DataSource = _house.ExchangeData.ToList<DbExchangeData>();
         }
     }
 }

@@ -35,6 +35,10 @@
             button2 = new Button();
             comboBox2 = new ComboBox();
             button3 = new Button();
+            button4 = new Button();
+            comboBox3 = new ComboBox();
+            listBox2 = new ListBox();
+            button5 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -51,7 +55,7 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(666, 103);
+            listBox1.Location = new Point(636, 99);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(374, 259);
             listBox1.TabIndex = 1;
@@ -101,11 +105,52 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // button4
+            // 
+            button4.Location = new Point(257, 423);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 7;
+            button4.Text = "Dodaj dane ";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // comboBox3
+            // 
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Location = new Point(59, 424);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(121, 23);
+            comboBox3.TabIndex = 8;
+            // 
+            // listBox2
+            // 
+            listBox2.FormattingEnabled = true;
+            listBox2.ItemHeight = 15;
+            listBox2.Location = new Point(405, 391);
+            listBox2.Name = "listBox2";
+            listBox2.Size = new Size(329, 94);
+            listBox2.TabIndex = 9;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(874, 424);
+            button5.Name = "button5";
+            button5.Size = new Size(136, 23);
+            button5.TabIndex = 10;
+            button5.Text = "CLEARDATABASE";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1177, 639);
+            Controls.Add(button5);
+            Controls.Add(listBox2);
+            Controls.Add(comboBox3);
+            Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(comboBox2);
             Controls.Add(button2);
@@ -128,5 +173,9 @@
         private Button button2;
         private ComboBox comboBox2;
         private Button button3;
+        private Button button4;
+        private ComboBox comboBox3;
+        private ListBox listBox2;
+        private Button button5;
     }
 }
